@@ -27,8 +27,18 @@ public class UserService {
 
 		if (u == null) {
 			throw new Exception("User not found");
+		} else {
+			return u;
 		}
+	}
 
-		return u;
+	public User loginUser(User loginUser) throws Exception {
+		User user = userDao.getUserByEmail(loginUser.getEmail());
+		
+		if (user.getEmail().equals(loginUser.getEmail()) && user.getPass().equals(loginUser.getPass())) {
+			return user;
+		} else {
+			throw new Exception("Invalid credentials");
+		}
 	}
 }

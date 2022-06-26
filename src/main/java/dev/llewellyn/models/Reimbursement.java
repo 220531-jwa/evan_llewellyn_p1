@@ -6,18 +6,20 @@ public class Reimbursement {
 	private int userId;
 	private String status;
 	private String description;
-	private int rCost;
+	private double rCost;
 	private String datetime;
 	private String rType;
 	private String gradeType;
 	private String passingGrade;
 	private String gradeReceived;
 	private boolean presentationSubmitted;
+	private double reimbursementAmount;
 	
 	public Reimbursement() {}
 
-	public Reimbursement(int rId, int userId, String status, String description, int rCost, String datetime,
-			String rType, String gradeType, String passingGrade, String gradeReceived, boolean presentationSubmitted) {
+	public Reimbursement(int rId, int userId, String status, String description, double rCost, String datetime,
+			String rType, String gradeType, String passingGrade, String gradeReceived, boolean presentationSubmitted,
+			double reimbursementAmount) {
 		super();
 		this.rId = rId;
 		this.userId = userId;
@@ -30,6 +32,7 @@ public class Reimbursement {
 		this.passingGrade = passingGrade;
 		this.gradeReceived = gradeReceived;
 		this.presentationSubmitted = presentationSubmitted;
+		this.reimbursementAmount = reimbursementAmount;
 	}
 
 	public int getRId() {
@@ -64,11 +67,11 @@ public class Reimbursement {
 		this.description = description;
 	}
 
-	public int getRCost() {
+	public double getRCost() {
 		return rCost;
 	}
 
-	public void setRCost(int rCost) {
+	public void setRCost(double rCost) {
 		this.rCost = rCost;
 	}
 
@@ -120,11 +123,20 @@ public class Reimbursement {
 		this.presentationSubmitted = presentationSubmitted;
 	}
 
+	public double getReimbursementAmount() {
+		return reimbursementAmount;
+	}
+
+	public void setReimbursementAmount(double reimbursementAmount) {
+		this.reimbursementAmount = reimbursementAmount;
+	}
+
 	@Override
 	public String toString() {
 		return "Reimbursement [rId=" + rId + ", userId=" + userId + ", status=" + status + ", description="
 				+ description + ", rCost=" + rCost + ", datetime=" + datetime + ", rType=" + rType + ", gradeType="
 				+ gradeType + ", passingGrade=" + passingGrade + ", gradeReceived=" + gradeReceived
-				+ ", presentationSubmitted=" + presentationSubmitted + "]";
+				+ ", presentationSubmitted=" + presentationSubmitted + ", reimbursementAmount=" + reimbursementAmount
+				+ "]";
 	}
 }

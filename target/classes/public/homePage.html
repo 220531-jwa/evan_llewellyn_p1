@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <!-- Form for making reimbursement request -->
+    <div>
+        <label>
+            Reimbursement Type:
+            <br/>
+            <select id="rType">
+                <option value="1">University Course</option>
+                <option value="2">Seminar</option>
+                <option value="3">Certification</option>
+                <option value="4">Certification Preparation Class</option>
+                <option value="5">Technical Training</option>
+                <option value="6">Other</option>
+              </select>
+        </label>
+        <br/>
+
+        <label>
+            Cost:
+            <br/>
+            <input id="cost" type="number" placeholder="Ex. 100">
+        </label>
+        <br/>
+
+        <label>
+            Grading Format:
+            <br/>
+            <select id="gType">
+                <option value="1">Letter</option>
+                <option value="2">Number</option>
+                <option value="3">Pass/Fail</option>
+                <option value="4">Presentation</option>
+              </select>
+        </label>
+        <br/>
+
+        <!-- Hide until format is selected? -->
+        <label>
+            Passing Grade:
+            <br/>
+            <input id="gPass" type="text" placeholder="Ex. C or 70"></input>
+        </label>
+        <br/>
+
+        <label>
+            Date and Time of Start:
+            <br/>
+            <input id="datetime" type="datetime-local"></input>
+        </label>
+       <br/>
+
+        <label>
+            Description:
+            <br/>
+            <textarea id="description"></textarea>
+        </label>
+       <br/><br/>
+        
+        <button type="button" onclick="checkSession()">Submit Reimbursement</button>
+    </div>
+
+    <script src="./scripts.js"></script>
+</body>
+</html>
