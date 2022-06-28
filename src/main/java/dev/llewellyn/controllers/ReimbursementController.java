@@ -12,22 +12,36 @@ public class ReimbursementController {
 	private static ReimbursementService rs = new ReimbursementService(new ReimbursementDAO());
 
 	public static void createNewReimbursement(Context ctx) {
-		ctx.status(201);
+		int id = Integer.parseInt(ctx.pathParam("id"));
 		Reimbursement rFromReqBody = ctx.bodyAsClass(Reimbursement.class);
+		rFromReqBody.setUserId(id);	
 		Reimbursement r = rs.createReimbursement(rFromReqBody);
+		ctx.status(201);
 		ctx.json(r);
 	}
 
+	//Get all reimbursements for user method needed
+	
 	public static void getAllReimbursements(Context ctx) {
 		ctx.status(200);
 		List<Reimbursement> reimbursements = rs.getAllReimbursements();
 		ctx.json(reimbursements);
 	}
+	
+	public static void getAllReimbursementsForUser(Context ctx) {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		
+		ctx.status(200);
+		List<Reimbursement> reimbursements = rs.getAllReimbursementsForUser(id);
+		ctx.json(reimbursements);
+	}
 
 	public static void updateReimbursement(Context ctx) {
-		int id = Integer.parseInt(ctx.pathParam("reimbursementId"));
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		int rId = Integer.parseInt(ctx.pathParam("reimbursementId"));
 		Reimbursement rFromReqBody = ctx.bodyAsClass(Reimbursement.class);
 		rFromReqBody.setUserId(id);
+		rFromReqBody.setrId(rId);
 
 		try {
 			rs.updateReimbursement(rFromReqBody);

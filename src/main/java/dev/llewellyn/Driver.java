@@ -23,29 +23,29 @@ public class Driver {
 			path("/login", () -> {
 				post(UserController::loginUser);
 			});
+			path("/reimbursements", () -> {
+				get(ReimbursementController::getAllReimbursements);
+			});
 			path("/users", () -> {
-//				post(UserController::createNewUser);
+//				post(UserController::createNewUser); // Stretch goal
 				path("/{id}", () -> {
 					get(UserController::getUserById);
-//					put(UserController::updateUser);
-//					delete(UserController::deleteUser);
+//					put(UserController::updateUser); // Stretch goal
 					path("/reimbursements", () -> {
 						post(ReimbursementController::createNewReimbursement);
-						get(ReimbursementController::getAllReimbursements);
+						get(ReimbursementController::getAllReimbursementsForUser);
 						path("/{reimbursementId}", () -> {
 //							get(ReimbursementController::getReimbursementById); // Not sure if necessary
 							put(ReimbursementController::updateReimbursement);
-//							delete(ReimbursementController::deleteReimbursement);
 						});
 					});
 				});
 			});
 		});
 		
-		// Will direct to login page
+		// Redirect base url to login page
 		app.get("/", ctx -> {
-			ctx.status(200);
-			ctx.result("Welcome to the Employee Reimbursement Service!");
+			ctx.redirect("login.html");
 		});
 	}
 	

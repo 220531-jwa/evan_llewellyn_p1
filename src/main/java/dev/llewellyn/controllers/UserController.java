@@ -35,9 +35,10 @@ public class UserController {
 		// Need to check if email is already in use, do in service
 		log.info("HTTP Request recieved at endpoint /users");
 		// Should check to make sure new user was created
-		ctx.status(201);
+		
 		User userFromReqBody = ctx.bodyAsClass(User.class);
 		User u = us.createUser(userFromReqBody);
+		ctx.status(201);
 		ctx.json(u);
 	}
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimbursement Form</title>
+</head>
+<body>
+    <!-- Form for making reimbursement request -->
+    <h1>Reimbursement Form</h1>
+    <div>
+        <label>
+            Reimbursement Type:
+            <br/>
+            <select id="rType">
+                <option value="University Course">University Course</option>
+                <option value="Seminar">Seminar</option>
+                <option value="Certification">Certification</option>
+                <option value="Certification Preparation Class">Certification Preparation Class</option>
+                <option value="Technical Training">Technical Training</option>
+                <option value="Other">Other</option>
+              </select>
+        </label>
+        <br/>
+
+        <label>
+            Cost:
+            <br/>
+            <input id="cost" type="number" placeholder="Ex. 100.50">
+        </label>
+        <br/>
+
+        <label>
+            Location:
+            <br/>
+            <input id="location" type="text" placeholder="Ex. WPI">
+        </label>
+        <br/>
+
+        <label>
+            Grading Format:
+            <br/>
+            <select id="gFormat">
+                <option value="Letter">Letter</option>
+                <option value="Pass/Fail">Pass/Fail</option>
+                <option value="Presentation">Presentation</option>
+              </select>
+        </label>
+        <br/>
+
+        <label>
+            Passing Grade (Optional):
+            <br/>
+            <input id="gPass" type="text" placeholder="Ex. B"></input>
+        </label>
+        <br/>
+
+        <label>
+            Start and End Date:
+            <br/>
+            <input id="startDate" type="date"></input>
+            <input id="endDate" type="date"></input>
+        </label>
+       <br/>
+
+       <label>
+            Start and End Time:
+            <br/>
+            <input id="startTime" type="time"></input>
+            <input id="endTime" type="time"></input>
+        </label>
+        <br/>
+
+        <label>
+            Description:
+            <br/>
+            <textarea id="description"></textarea>
+        </label>
+       <br/><br/>
+        
+        <button type="button" onclick="submitReimbursementForm()">Submit Reimbursement</button>
+    </div>
+
+    <script src="./scripts.js"></script>
+</body>
+</html>

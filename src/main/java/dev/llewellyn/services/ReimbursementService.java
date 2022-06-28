@@ -18,24 +18,24 @@ public class ReimbursementService {
 	public Reimbursement createReimbursement(Reimbursement r) {
 		double rValue;
 		
-		switch(r.getRType()) {
+		switch(r.getrType()) {
 			case "University Course":
-				rValue = r.getRCost() * 0.8;
+				rValue = r.getrCost() * 0.8;
 				break;
 			case "Seminar":
-				rValue = r.getRCost() * 0.6;
+				rValue = r.getrCost() * 0.6;
 				break;
 			case "Certification":
-				rValue = r.getRCost();
+				rValue = r.getrCost();
 				break;
 			case "Certification Preparation Class":
-				rValue = r.getRCost() * 0.75;
+				rValue = r.getrCost() * 0.75;
 				break;
 			case "Technical Training":
-				rValue = r.getRCost() * 0.9;
+				rValue = r.getrCost() * 0.9;
 				break;
 			case "Other":
-				rValue = r.getRCost() * 0.3;
+				rValue = r.getrCost() * 0.3;
 				break;
 			default:
 				rValue = 0d;
@@ -47,11 +47,16 @@ public class ReimbursementService {
 	    r.setReimbursementAmount(bd.doubleValue());
 		
 		Reimbursement createdReimbursement = rDao.createReimbursement(r);
+		
 		return createdReimbursement;
 	}
 
 	public List<Reimbursement> getAllReimbursements() {
 		return rDao.getAllReimbursements();
+	}
+	
+	public List<Reimbursement> getAllReimbursementsForUser(int id) {
+		return rDao.getAllReimbursementsForUser(id);
 	}
 
 	public int updateReimbursement(Reimbursement rChanged) throws Exception {

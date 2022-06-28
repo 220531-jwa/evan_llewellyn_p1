@@ -1,5 +1,8 @@
 package dev.llewellyn.models;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Reimbursement {
 
 	private int rId;
@@ -7,9 +10,13 @@ public class Reimbursement {
 	private String status;
 	private String description;
 	private double rCost;
-	private String datetime;
+	private String rLocation;
+	private Date startDate;
+	private Date endDate;
+	private Time startTime;
+	private Time endTime;
 	private String rType;
-	private String gradeType;
+	private String gradeFormat;
 	private String passingGrade;
 	private String gradeReceived;
 	private boolean presentationSubmitted;
@@ -17,29 +24,33 @@ public class Reimbursement {
 	
 	public Reimbursement() {}
 
-	public Reimbursement(int rId, int userId, String status, String description, double rCost, String datetime,
-			String rType, String gradeType, String passingGrade, String gradeReceived, boolean presentationSubmitted,
-			double reimbursementAmount) {
+	public Reimbursement(int rId, int userId, String status, String description, double rCost, String rLocation,
+			Date startDate, Date endDate, Time startTime, Time endTime, String rType, String gradeFormat,
+			String passingGrade, String gradeReceived, boolean presentationSubmitted, double reimbursementAmount) {
 		super();
 		this.rId = rId;
 		this.userId = userId;
 		this.status = status;
 		this.description = description;
 		this.rCost = rCost;
-		this.datetime = datetime;
+		this.rLocation = rLocation;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.rType = rType;
-		this.gradeType = gradeType;
+		this.gradeFormat = gradeFormat;
 		this.passingGrade = passingGrade;
 		this.gradeReceived = gradeReceived;
 		this.presentationSubmitted = presentationSubmitted;
 		this.reimbursementAmount = reimbursementAmount;
 	}
 
-	public int getRId() {
+	public int getrId() {
 		return rId;
 	}
 
-	public void setRId(int rId) {
+	public void setrId(int rId) {
 		this.rId = rId;
 	}
 
@@ -67,36 +78,68 @@ public class Reimbursement {
 		this.description = description;
 	}
 
-	public double getRCost() {
+	public double getrCost() {
 		return rCost;
 	}
 
-	public void setRCost(double rCost) {
+	public void setrCost(double rCost) {
 		this.rCost = rCost;
 	}
 
-	public String getDatetime() {
-		return datetime;
+	public String getrLocation() {
+		return rLocation;
 	}
 
-	public void setDatetime(String datetime) {
-		this.datetime = datetime;
+	public void setrLocation(String rLocation) {
+		this.rLocation = rLocation;
 	}
 
-	public String getRType() {
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Time getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
+	}
+
+	public Time getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Time endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getrType() {
 		return rType;
 	}
 
-	public void setRType(String rType) {
+	public void setrType(String rType) {
 		this.rType = rType;
 	}
 
-	public String getGradeType() {
-		return gradeType;
+	public String getGradeFormat() {
+		return gradeFormat;
 	}
 
-	public void setGradeType(String gradeType) {
-		this.gradeType = gradeType;
+	public void setGradeFormat(String gradeFormat) {
+		this.gradeFormat = gradeFormat;
 	}
 
 	public String getPassingGrade() {
@@ -134,8 +177,9 @@ public class Reimbursement {
 	@Override
 	public String toString() {
 		return "Reimbursement [rId=" + rId + ", userId=" + userId + ", status=" + status + ", description="
-				+ description + ", rCost=" + rCost + ", datetime=" + datetime + ", rType=" + rType + ", gradeType="
-				+ gradeType + ", passingGrade=" + passingGrade + ", gradeReceived=" + gradeReceived
+				+ description + ", rCost=" + rCost + ", rLocation=" + rLocation + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", startTime=" + startTime + ", endTime=" + endTime + ", rType=" + rType
+				+ ", gradeFormat=" + gradeFormat + ", passingGrade=" + passingGrade + ", gradeReceived=" + gradeReceived
 				+ ", presentationSubmitted=" + presentationSubmitted + ", reimbursementAmount=" + reimbursementAmount
 				+ "]";
 	}
