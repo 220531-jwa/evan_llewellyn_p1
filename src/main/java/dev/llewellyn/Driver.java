@@ -29,13 +29,11 @@ public class Driver {
 			path("/users", () -> {
 //				post(UserController::createNewUser); // Stretch goal
 				path("/{id}", () -> {
-					get(UserController::getUserById);
 //					put(UserController::updateUser); // Stretch goal
 					path("/reimbursements", () -> {
 						post(ReimbursementController::createNewReimbursement);
 						get(ReimbursementController::getAllReimbursementsForUser);
 						path("/{reimbursementId}", () -> {
-//							get(ReimbursementController::getReimbursementById); // Not sure if necessary
 							put(ReimbursementController::updateReimbursement);
 						});
 					});
@@ -43,7 +41,7 @@ public class Driver {
 			});
 		});
 		
-		// Redirect base url to login page
+		// Redirect base URL to login page
 		app.get("/", ctx -> {
 			ctx.redirect("login.html");
 		});

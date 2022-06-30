@@ -22,11 +22,7 @@ async function login() {
     let resJson = await res.json()
         .then((resp) => {
             sessionStorage.setItem("user", JSON.stringify(resp));
-            if (resp.isFinanceManager) {
-                window.location.assign("managerhomepage.html");
-            } else {
-                window.location.assign("userhomepage.html");
-            }
+            window.location.assign("homepage.html");
         })
         .catch((error) => {
             console.log(error);
@@ -57,8 +53,16 @@ async function submitReimbursementForm() {
     }
 
     if (gPass == "") {
-        console.log("Passing grade set to default (C)");
-        gPass = "C";
+        if (gFormat == "Letter") {
+            console.log("Passing grade set to default (C)");
+            gPass = "C";
+        }
+        if (gPass == "Pass/Fail") {
+            console.log("Passing grade set to default (Pass)");
+            gPass = "Pass";
+        } else {
+            gPass = "N/A";
+        }
     } else {
         gPass = gPass.toUpperCase();
     }
@@ -154,14 +158,28 @@ function checkInput(rType, cost, gFormat, gPass, location, startDate, endDate, s
             return false;
         }
     }
-
     return true;
 }
 
-async function getReimbursementsForUser() {
-    let user = JSON.parse(sessionStorage.getItem("user"));
-    console.log(user);
+async function getAllReimbursements(user) {
+    let res = await fetch(
+        `${baseUrl}/reimbursements`,
+        {
+            method: 'GET',
+            header: { 'Content-Type': 'application/json' }
+        }
+    );
+    let resJson = await res.json()
+        .then((resp) => {
+            console.log(resp);
+            fillTable(resp, user);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
+async function getReimbursementsForUser(user) {
     let res = await fetch(
         `${baseUrl}/users/${user.uid}/reimbursements`,
         {
@@ -172,60 +190,93 @@ async function getReimbursementsForUser() {
     let resJson = await res.json()
         .then((resp) => {
             console.log(resp);
-            let table = document.getElementById("rTable");
-            for (r of resp) {
-                let row = table.insertRow(-1);
-                let c0 = row.insertCell(0);
-                let c1 = row.insertCell(1);
-                let c2 = row.insertCell(2);
-                let c3 = row.insertCell(3);
-                let c4 = row.insertCell(4);
-                let c5 = row.insertCell(5);
-                let c6 = row.insertCell(6);
-                let c7 = row.insertCell(7);
-                let c8 = row.insertCell(8);
-                let c9 = row.insertCell(9);
-                let c10 = row.insertCell(10);
-                let c11 = row.insertCell(11);
-                let c12  = row.insertCell(12);
-                let c13 = row.insertCell(13);
-                let c14 = row.insertCell(14);
-                
-                c0.innerHTML = r.rId;
-                c1.innerHTML = user.firstName + " " + user.lastName;
-                c2.innerHTML = r.status;
-                c3.innerHTML = r.rType;
-                c4.innerHTML = r.description;
-                c5.innerHTML = parseFloat(r.rCost).toFixed(2);
-                c6.innerHTML = parseFloat(r.reimbursementAmount).toFixed(2);
-                c7.innerHTML = r.gradeFormat;
-                c8.innerHTML = r.passingGrade;
-                c9.innerHTML = r.gradeReceived;
-                c10.innerHTML = r.presentationSubmitted;
-                c11.innerHTML = r.rLocation;
-                c12.innerHTML = `${new Date(r.startDate).toDateString()}-${new Date(r.endDate).toDateString()}`;
-                c13.innerHTML = r.startTime + "-" + r.endTime;
-                if (!user.isFinanceManager) {
-                    // Have edit button send to correct page for editing reimbursement
-                    c14.innerHTML = "<button>Edit</button>";
-                } else {
-                    // Have edit button send to correct page for editing reimbursement 
-                }
-                
-            }
-
-
+            fillTable(resp, user);
         })
         .catch((error) => {
             console.log(error);
         });
 }
 
-window.onload = function () {
-    if (window.location.href.match("http://localhost:8080/userhomepage.html") != null) {
-        getReimbursementsForUser();
+function fillTable(resp, user) {
+    let table = document.getElementById("rTable");
+    for (r of resp) {
+        let row = table.insertRow(-1);
+        let c0 = row.insertCell(0);
+        let c1 = row.insertCell(1);
+        let c2 = row.insertCell(2);
+        let c3 = row.insertCell(3);
+        let c4 = row.insertCell(4);
+        let c5 = row.insertCell(5);
+        let c6 = row.insertCell(6);
+        let c7 = row.insertCell(7);
+        let c8 = row.insertCell(8);
+        let c9 = row.insertCell(9);
+        let c10 = row.insertCell(10);
+        let c11 = row.insertCell(11);
+        let c12  = row.insertCell(12);
+        let c13 = row.insertCell(13);
+        let c14 = row.insertCell(14);
+        
+        c0.innerHTML = r.rId;
+        if (user.financeManager) {
+            c1.innerHTML = r.firstName + " " + r.lastName;
+        } else {
+            c1.innerHTML = user.firstName + " " + user.lastName;
+        }
+        c2.innerHTML = r.status;
+        c3.innerHTML = r.rType;
+        c4.innerHTML = r.description;
+        c5.innerHTML = "$" + parseFloat(r.rCost).toFixed(2);
+        c6.innerHTML = "$" + parseFloat(r.reimbursementAmount).toFixed(2);
+        c7.innerHTML = r.gradeFormat;
+        c8.innerHTML = r.passingGrade;
+        c9.innerHTML = r.gradeReceived;
+        c10.innerHTML = r.presentationSubmitted;
+        c11.innerHTML = r.rLocation;
+        c12.innerHTML = `${new Date(r.startDate).toDateString()}-${new Date(r.endDate).toDateString()}`;
+        c13.innerHTML = r.startTime + "-" + r.endTime;
+        c14.innerHTML = "<button type='button' onclick='update(this)'>Save</button>";  
     }
-    if (window.location.href.match("http://localhost:8080/managerhomepage.html") != null) {
-        getAllReimbursements();
+}
+
+function update(cell) {
+    let index = cell.closest("tr").rowIndex;
+    console.log(index);
+}
+
+function sendToForm() {
+    window.location.assign("form.html");
+}
+
+function cancel() {
+    window.location.assign("homepage.html");
+}
+
+window.onload = function () {
+    if (window.location.href.match("http://localhost:8080/homepage.html") != null) {
+        let p = document.getElementById("rAmountLeft");
+        let caption = document.getElementById("tableCaption");
+        let button = document.getElementById("formButton");
+        let user = JSON.parse(sessionStorage.getItem("user"));
+
+        if (user.financeManager) {
+            p.style.display = "none";
+            caption.innerHTML = "All Reimbursements";
+            button.style.display = "none";
+            getAllReimbursements(user);
+        } else {
+            let rAmountLeft = p.innerHTML + "$" + parseFloat(user.availableAmount).toFixed(2);
+            p.innerHTML = rAmountLeft;
+            getReimbursementsForUser(user);
+        }
+    }
+    if (window.location.href.match("http://localhost:8080/form.html") != null) {
+        document.getElementById("gFormat").addEventListener('change', (event) => {
+            if (event.target.value == "Letter") {
+                document.getElementById("gPassLabel").style.display = "inline";
+            } else {
+                document.getElementById("gPassLabel").style.display = "none";
+            }
+        });
     }
 }

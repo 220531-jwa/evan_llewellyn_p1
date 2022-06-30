@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>User Home Page</title>
+    <title>Home Page</title>
 </head>
 <body>
     <div id="data">
         <table id="rTable">
-            <caption>Your Reimbursements</caption>
+            <caption id="tableCaption">Your Reimbursements</caption>
             <tr>
                 <th>rId</th>
                 <th>Employee Name</th>
@@ -26,10 +26,12 @@
                 <th>Location</th>
                 <th>Dates</th>
                 <th>Times</th>
-                <th>Edit</th>
+                <th>Save</th>
             </tr>
         </table>
     </div>
+    <p id="rAmountLeft">Available Reimbursement Left: </p>
+    <button id="formButton" type="button" onclick="sendToForm()">Submit Reimbursement Request</button>
 
     <script src="./scripts.js"></script>
 </body>

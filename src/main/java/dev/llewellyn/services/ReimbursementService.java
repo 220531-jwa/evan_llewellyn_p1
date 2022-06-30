@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 import dev.llewellyn.models.Reimbursement;
+import dev.llewellyn.models.UserReimbursementJoin;
 import dev.llewellyn.repositories.ReimbursementDAO;
 
 public class ReimbursementService {
@@ -45,13 +46,15 @@ public class ReimbursementService {
 		BigDecimal bd = new BigDecimal(Double.toString(rValue));
 	    bd = bd.setScale(2, RoundingMode.HALF_UP);
 	    r.setReimbursementAmount(bd.doubleValue());
+	    
+	    if (r.getGradeFormat().equals("Presentation")) {
+	    	r.setGradeReceived("N/A");
+	    }
 		
-		Reimbursement createdReimbursement = rDao.createReimbursement(r);
-		
-		return createdReimbursement;
+		return rDao.createReimbursement(r);
 	}
 
-	public List<Reimbursement> getAllReimbursements() {
+	public List<UserReimbursementJoin> getAllReimbursements() {
 		return rDao.getAllReimbursements();
 	}
 	

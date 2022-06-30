@@ -12,28 +12,13 @@ public class UserService {
 	public UserService(UserDAO userDao) {
 		UserService.userDao = userDao;
 	}
-
-	public User createUser(User u) {
-		User createdUser = userDao.createUser(u);
-		return createdUser;
-	}
-
-	public List<User> getAllUsers() {
-		return userDao.getAllUsers();
-	}
-
-	public User getUserById(int id) throws Exception {
-		User u = userDao.getUserById(id);
-
-		if (u == null) {
-			throw new Exception("User not found");
-		} else {
-			return u;
-		}
-	}
-
+	
 	public User loginUser(User loginUser) throws Exception {
 		User user = userDao.getUserByEmail(loginUser.getEmail());
+		
+		if (user == null) {
+			throw new Exception("User not found");
+		}
 		
 		if (user.getEmail().equals(loginUser.getEmail()) && user.getPass().equals(loginUser.getPass())) {
 			return user;
@@ -41,4 +26,18 @@ public class UserService {
 			throw new Exception("Invalid credentials");
 		}
 	}
+
+	public User createUser(User u) throws Exception {
+		User createdUser = userDao.createUser(u);
+		
+		if (createdUser == null) {
+			throw new Exception("Email already in use");
+		} else {
+			return createdUser;
+		}
+	}
+
+//	public List<User> getAllUsers() {
+//		return userDao.getAllUsers();
+//	}
 }

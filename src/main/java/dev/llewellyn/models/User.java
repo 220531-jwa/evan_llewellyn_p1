@@ -7,7 +7,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String pass;
-	private int availableAmount; //Amount of reimbursement left this year
+	private int availableAmount;
 	private boolean isFinanceManager;
 	
 	public User() {}

@@ -13,6 +13,7 @@ table, th, td {
     border: 2px solid black;
     background-color: white;
     border-collapse: collapse;
+    text-align: center;
 }
 
 th, td {
@@ -22,4 +23,8 @@ th, td {
 
 #rTable tr td:nth-child(1), #rTable th:nth-child(1) {
     display: none;
+}
+
+#rTable tr td:nth-child(15), #rTable th:nth-child(15) {
+    text-align: center;
 }
