@@ -7,12 +7,12 @@ public class User {
 	private String lastName;
 	private String email;
 	private String pass;
-	private int availableAmount;
+	private double availableAmount;
 	private boolean isFinanceManager;
 	
 	public User() {}
 	
-	public User(int id, String firstName, String lastName, String email, String pass, int availableAmount,
+	public User(int id, String firstName, String lastName, String email, String pass, double availableAmount,
 			boolean isFinanceManager) {
 		this.uId = id;
 		this.firstName = firstName;
@@ -61,11 +61,11 @@ public class User {
 		this.pass = pass;
 	}
 	
-	public int getAvailableAmount() {
+	public double getAvailableAmount() {
 		return availableAmount;
 	}
 	
-	public void setAvailableAmount(int availableAmount) {
+	public void setAvailableAmount(double availableAmount) {
 		this.availableAmount = availableAmount;
 	}
 	

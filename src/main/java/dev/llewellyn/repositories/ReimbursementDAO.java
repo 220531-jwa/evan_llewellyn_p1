@@ -63,7 +63,7 @@ public class ReimbursementDAO {
 			while (rs.next()) {
 				UserReimbursementJoin r = new UserReimbursementJoin(rs.getString("first_name"),
 						rs.getString("last_name"), rs.getString("email"), rs.getString("pass"),
-						rs.getInt("available_amount"), rs.getBoolean("is_finance_manager"), rs.getInt("r_id"),
+						rs.getDouble("available_amount"), rs.getBoolean("is_finance_manager"), rs.getInt("r_id"),
 						rs.getInt("user_id"), rs.getString("status"), rs.getString("description"),
 						rs.getDouble("r_cost"), rs.getString("r_location"), rs.getDate("start_date"),
 						rs.getDate("end_date"), rs.getTime("start_time"), rs.getTime("end_time"),
@@ -107,30 +107,17 @@ public class ReimbursementDAO {
 	}
 
 	public int updateReimbursement(Reimbursement changedR) {
-		String sql = "update reimbursements set user_id = ?, status = ?::status, description = ?, r_cost = ?, "
-				+ "r_location = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, r_type = ?::reimbursement_type, "
-				+ "grade_format = ?::grade_format, passing_grade = ?, grade_received = ?, presentation_submitted = ?, "
-				+ "reimbursement_amount = ? where r_id = ?";
+		String sql = "update reimbursements set status = ?::status, grade_received = ?, "
+				+ "presentation_submitted = ?, reimbursement_amount = ? where r_id = ?";
 
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, changedR.getUserId());
-			ps.setString(2, changedR.getStatus());
-			ps.setString(3, changedR.getDescription());
-			ps.setDouble(4, changedR.getrCost());
-			ps.setString(5, changedR.getrLocation());
-			ps.setDate(6, changedR.getStartDate());
-			ps.setDate(7, changedR.getEndDate());
-			ps.setTime(8, changedR.getStartTime());
-			ps.setTime(9, changedR.getEndTime());
-			ps.setString(10, changedR.getrType());
-			ps.setString(11, changedR.getGradeFormat());
-			ps.setString(12, changedR.getPassingGrade());
-			ps.setString(13, changedR.getGradeReceived());
-			ps.setBoolean(14, changedR.isPresentationSubmitted());
-			ps.setDouble(15, changedR.getReimbursementAmount());
-			ps.setInt(16, changedR.getrId());
+			ps.setString(1, changedR.getStatus());
+			ps.setString(2, changedR.getGradeReceived());
+			ps.setBoolean(3, changedR.isPresentationSubmitted());
+			ps.setDouble(4, changedR.getReimbursementAmount());
+			ps.setInt(5, changedR.getrId());
 
 			return ps.executeUpdate();
 

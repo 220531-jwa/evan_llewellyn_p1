@@ -8,6 +8,7 @@
     <title>Home Page</title>
 </head>
 <body>
+    <button type="button" onclick="logout()">Log Out</button>
     <div id="data">
         <table id="rTable">
             <caption id="tableCaption">Your Reimbursements</caption>
@@ -26,11 +27,12 @@
                 <th>Location</th>
                 <th>Dates</th>
                 <th>Times</th>
-                <th>Save</th>
+                <th>Edit</th>
+                <th>userId</th>
             </tr>
         </table>
     </div>
-    <p id="rAmountLeft">Available Reimbursement Left: </p>
+    <p id="rAmountLeft">Available Reimbursement Left:</p>
     <button id="formButton" type="button" onclick="sendToForm()">Submit Reimbursement Request</button>
 
     <script src="./scripts.js"></script>

@@ -18,7 +18,6 @@ public class UserServiceTests {
 	
 	@BeforeEach
 	public void setUp() {
-		//refreshing the mock so that it runs unique to each test.
 		mockUserDao = mock(UserDAO.class);
 		us = new UserService(mockUserDao);
 	}

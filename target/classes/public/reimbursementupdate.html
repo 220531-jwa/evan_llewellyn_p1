@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Reimbursement</title>
+</head>
+<body>
+    <h2>Update Reimbursement</h2>
+    <div>
+        <label id="gReceivedLabel">
+            Grade Received:
+            <br/>
+            <input id="updateGReceived" type="text" placeholder="Ex. B or Pass">
+        </label>
+
+        <label id="pSubmittedLabel">
+            Presentation Submitted:
+            <input id="updatePresentation" type="checkbox">
+        </label>
+        <br/>
+
+        <label id="uStatusLabel">
+            Status:
+            <br/>
+            <select id="updateStatus">
+                <option value="Submitted" disabled>Submitted</option>
+                <option value="Urgent" disabled>Urgent</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </label>
+        <br/>
+
+        <label id="rAmountLabel">
+            Reimbursement Amount:
+            <br/>
+            <input id="updateRAmount" type="number" placeholder="Ex. 100.50">
+        </label>
+        <br/><br/>
+
+        <button type="button" onclick="submitUpdate()">Update</button>
+    </div>
+    <br/>
+    <button type="button" onclick="cancel()">Cancel</button>
+
+    <script src="./scripts.js"></script>
+</body>
+</html>

@@ -1,7 +1,5 @@
 package dev.llewellyn.controllers;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,12 +14,12 @@ public class UserController {
 	private static Logger log = LogManager.getLogger(UserController.class);
 
 	public static void loginUser(Context ctx) {
-		log.info("HTTP Request received at endpoint /login");	
+		log.info("HTTP POST Request received at endpoint /login");	
 		User userFromReqBody = ctx.bodyAsClass(User.class);
 		
 		try {
 			User u = us.loginUser(userFromReqBody);
-			log.info("Successful login");
+			log.info("Successful login for user with id " + u.getUId());
 			ctx.status(202);
 			ctx.json(u);
 		} catch (Exception e) {
@@ -34,7 +32,7 @@ public class UserController {
 	}
 	
 	public static void createNewUser(Context ctx) {
-		log.info("HTTP Request recieved at endpoint /users");
+		log.info("HTTP POST Request recieved at endpoint /users");
 		User userFromReqBody = ctx.bodyAsClass(User.class);
 		
 		try {
@@ -49,10 +47,4 @@ public class UserController {
 			ctx.result("Email already in use");
 		}	
 	}
-
-//	public static void getAllUsers(Context ctx) {
-//		ctx.status(200);
-//		List<User> users = us.getAllUsers();
-//		ctx.json(users);
-//	}
 }

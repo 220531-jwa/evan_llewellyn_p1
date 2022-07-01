@@ -34,7 +34,7 @@ public class Driver {
 						post(ReimbursementController::createNewReimbursement);
 						get(ReimbursementController::getAllReimbursementsForUser);
 						path("/{reimbursementId}", () -> {
-							put(ReimbursementController::updateReimbursement);
+							patch(ReimbursementController::updateReimbursement);
 						});
 					});
 				});

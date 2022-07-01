@@ -1,7 +1,5 @@
 package dev.llewellyn.services;
 
-import java.util.List;
-
 import dev.llewellyn.models.User;
 import dev.llewellyn.repositories.UserDAO;
 
@@ -36,8 +34,4 @@ public class UserService {
 			return createdUser;
 		}
 	}
-
-//	public List<User> getAllUsers() {
-//		return userDao.getAllUsers();
-//	}
 }

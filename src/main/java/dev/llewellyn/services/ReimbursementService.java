@@ -5,18 +5,22 @@ import java.math.RoundingMode;
 import java.util.List;
 
 import dev.llewellyn.models.Reimbursement;
+import dev.llewellyn.models.User;
 import dev.llewellyn.models.UserReimbursementJoin;
 import dev.llewellyn.repositories.ReimbursementDAO;
+import dev.llewellyn.repositories.UserDAO;
 
 public class ReimbursementService {
 
 	private static ReimbursementDAO rDao;
+	private static UserDAO uDao;
 
-	public ReimbursementService(ReimbursementDAO rDao) {
+	public ReimbursementService(ReimbursementDAO rDao, UserDAO uDao) {
 		ReimbursementService.rDao = rDao;
+		ReimbursementService.uDao = uDao;
 	}
 
-	public Reimbursement createReimbursement(Reimbursement r) {
+	public Reimbursement createReimbursement(Reimbursement r) throws Exception {
 		double rValue;
 		
 		switch(r.getrType()) {
@@ -51,7 +55,12 @@ public class ReimbursementService {
 	    	r.setGradeReceived("N/A");
 	    }
 		
-		return rDao.createReimbursement(r);
+	    Reimbursement re = rDao.createReimbursement(r);
+		if (re == null) {
+			throw new Exception("Could not create reimbursement given " + r);
+		} else {
+			return re;
+		}
 	}
 
 	public List<UserReimbursementJoin> getAllReimbursements() {
@@ -66,8 +75,23 @@ public class ReimbursementService {
 		int success = rDao.updateReimbursement(rChanged);
 
 		if (success == 0) {
-			throw new Exception("Reimbursement not found");
+			throw new Exception("Reimbursement with id " + rChanged.getrId() + " not found");
 		} else {
+			if (rChanged.getStatus() == "Approved") {
+				User u = uDao.getUserById(rChanged.getUserId());
+				double currentAmount = u.getAvailableAmount();
+				double newAmount = currentAmount - rChanged.getReimbursementAmount();
+				
+				// Make sure value has only two places
+				BigDecimal bd = new BigDecimal(Double.toString(newAmount));
+			    bd = bd.setScale(2, RoundingMode.HALF_UP);
+			    
+			    int uSuccess = uDao.updateUser(u.getUId(), bd.doubleValue());
+			    if (uSuccess == 0) {
+			    	throw new Exception("Failed to update user with id "+ u.getUId() + " new available reimbursement amount");
+			    }
+			}
+			
 			return success;
 		}
 	}

@@ -9,7 +9,7 @@ public class UserReimbursementJoin {
 	private String lastName;
 	private String email;
 	private String pass;
-	private int availableAmount;
+	private double availableAmount;
 	private boolean isFinanceManager;
 	private int rId;
 	private int userId;
@@ -30,7 +30,7 @@ public class UserReimbursementJoin {
 	
 	public UserReimbursementJoin() {}
 	
-	public UserReimbursementJoin(String firstName, String lastName, String email, String pass, int availableAmount,
+	public UserReimbursementJoin(String firstName, String lastName, String email, String pass, double availableAmount,
 			boolean isFinanceManager, int rId, int userId, String status, String description, double rCost,
 			String rLocation, Date startDate, Date endDate, Time startTime, Time endTime, String rType,
 			String gradeFormat, String passingGrade, String gradeReceived, boolean presentationSubmitted,
@@ -92,11 +92,11 @@ public class UserReimbursementJoin {
 		this.pass = pass;
 	}
 
-	public int getAvailableAmount() {
+	public double getAvailableAmount() {
 		return availableAmount;
 	}
 
-	public void setAvailableAmount(int availableAmount) {
+	public void setAvailableAmount(double availableAmount) {
 		this.availableAmount = availableAmount;
 	}
 

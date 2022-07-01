@@ -30,6 +30,11 @@ async function login() {
         });
 }
 
+function logout() {
+    sessionStorage.removeItem("user");
+    window.location.assign("login.html");
+}
+
 function diffWeeks(dt2, dt1) {
     let diff =(dt2 - dt1) / 1000;
     diff /= (60 * 60 * 24 * 7);
@@ -52,12 +57,12 @@ async function submitReimbursementForm() {
         return;
     }
 
-    if (gPass == "") {
-        if (gFormat == "Letter") {
+    if (gPass === "") {
+        if (gFormat === "Letter") {
             console.log("Passing grade set to default (C)");
             gPass = "C";
         }
-        if (gPass == "Pass/Fail") {
+        if (gPass === "Pass/Fail") {
             console.log("Passing grade set to default (Pass)");
             gPass = "Pass";
         } else {
@@ -96,8 +101,6 @@ async function submitReimbursementForm() {
         passingGrade: gPass
     };
 
-    console.log(reimbursement);
-
     let user = JSON.parse(sessionStorage.getItem("user"));
     let rJson = JSON.stringify(reimbursement);
 
@@ -111,16 +114,17 @@ async function submitReimbursementForm() {
     );
     let resJson = await res.json()
         .then((resp) => {
-            console.log(resp);
+            window.location.assign("homepage.html");
         })
         .catch((error) => {
             console.log(error);
+            alert("Failed to create reimbursement");
         });
 }
 
 function checkInput(rType, cost, gFormat, gPass, location, startDate, endDate, startTime, endTime) {
-    if (rType == "" || cost == "" || gFormat == "" || location == "" || startDate == "" || 
-    endDate == "" || startTime == "" || endTime == "") {
+    if (rType === "" || cost === "" || gFormat === "" || location === "" || startDate === "" || 
+    endDate === "" || startTime === "" || endTime === "") {
         alert("Need values for all required fields");
         return false;
     }
@@ -146,14 +150,14 @@ function checkInput(rType, cost, gFormat, gPass, location, startDate, endDate, s
         return false;
     }
 
-    if (gPass != "") {
+    if (gPass !== "") {
         if (gPass.length > 1) {
-            alert("Passing grade must be single letter");
+            alert("Passing grade must be single letter (no plus or minus");
             return false;
         }
 
-        if (gPass.length == 1 && (gPass != "A" && gPass != "B" && gPass != "C" && gPass != "D" 
-        && gPass != "F")) {
+        if (gPass.length === 1 && (gPass !== "A" && gPass !== "B" && gPass !== "C" && gPass !== "D" 
+        && gPass !== "F")) {
             alert("Please input valid letter grade or leave blank");
             return false;
         }
@@ -171,11 +175,11 @@ async function getAllReimbursements(user) {
     );
     let resJson = await res.json()
         .then((resp) => {
-            console.log(resp);
             fillTable(resp, user);
         })
         .catch((error) => {
             console.log(error);
+            alert("Failed to get reimbursements");
         });
 }
 
@@ -189,11 +193,11 @@ async function getReimbursementsForUser(user) {
     );
     let resJson = await res.json()
         .then((resp) => {
-            console.log(resp);
             fillTable(resp, user);
         })
         .catch((error) => {
             console.log(error);
+            alert("Failed to get reimbursements");
         });
 }
 
@@ -216,6 +220,7 @@ function fillTable(resp, user) {
         let c12  = row.insertCell(12);
         let c13 = row.insertCell(13);
         let c14 = row.insertCell(14);
+        let c15 = row.insertCell(15);
         
         c0.innerHTML = r.rId;
         if (user.financeManager) {
@@ -235,13 +240,86 @@ function fillTable(resp, user) {
         c11.innerHTML = r.rLocation;
         c12.innerHTML = `${new Date(r.startDate).toDateString()}-${new Date(r.endDate).toDateString()}`;
         c13.innerHTML = r.startTime + "-" + r.endTime;
-        c14.innerHTML = "<button type='button' onclick='update(this)'>Save</button>";  
+        c14.innerHTML = "<button type='button' onclick='update(this)'>Edit</button>";
+        c15.innerHTML = r.userId;
     }
 }
 
 function update(cell) {
-    let index = cell.closest("tr").rowIndex;
-    console.log(index);
+    let rowNum = cell.closest("tr").rowIndex;
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    
+    let partialReimbursement = {
+        rId: document.getElementById("rTable").rows[rowNum].cells[0].innerHTML,
+        userId: user.uid,
+        status: document.getElementById("rTable").rows[rowNum].cells[2].innerHTML,
+        reimbursementAmount: document.getElementById("rTable").rows[rowNum].cells[6].innerHTML,
+        gradeFormat: document.getElementById("rTable").rows[rowNum].cells[7].innerHTML,
+        passingGrade: document.getElementById("rTable").rows[rowNum].cells[8].innerHTML,
+        gradeReceived: document.getElementById("rTable").rows[rowNum].cells[9].innerHTML,
+        presentationSubmitted: document.getElementById("rTable").rows[rowNum].cells[10].innerHTML
+    }
+
+    sessionStorage.setItem("partialR", JSON.stringify(partialReimbursement));
+    window.location.assign("reimbursementupdate.html");
+}
+
+async function submitUpdate() {
+    let partialR = JSON.parse(sessionStorage.getItem("partialR"));
+
+    let status = getElementById("updateGReceived").value;
+    let gReceived = document.getElementById("updateGReceived").value;
+    let pSubmitted = document.getElementById("updatePresentation").checked;
+    let rAmount = parseFloat(document.getElementById("updateRAmount").value).toFixed(2);
+    let gradeFormat = partialR.gradeFormat;
+    let gPass = partialR.passingGrade;
+
+    if (pSubmitted === false && gradeFormat === "Presentation" && status === "Approved") {
+        alert("Cannot approve request: Presentation must be submitted first");
+        return;
+    } else if (gReceived === "" && gradeFormat !== "Presentation" && status === "Approved") {
+        alert("Cannot approve request: Grade must be submitted first");
+        return;
+    } else if (gradeFormat === "Pass/Fail" && gReceived !== "Pass" && gReceived !== "Fail") {
+        alert("Pass/Fail format requires Grade received should be Pass or Fail");
+        return;
+    } else if (gradeFormat === "Letter") {
+        if (gReceived.length === 1 && (gReceived !== "A" && gReceived !== "B" && gReceived !== "C" 
+        && gReceived !== "D" && gReceived !== "F")) {
+            alert("Please input valid letter grade");
+            return;
+        }
+        gRecieved = gReceived.toUpperCase();
+        if (gReceived.charCodeAt(0) > gPass.charCodeAt(0) && status === "Approved") {
+            alert("Cannot approve request: Grade received must be at or above passing grade")
+        }
+    }
+
+    let newPartialR = {
+        status: status,
+        gradeReceived: gReceived,
+        presentationSubmitted: pSubmitted,
+        reimbursementAmount: rAmount
+    };
+
+    let rJson = JSON.stringify(newPartialR);
+    console.log(rJson);
+
+    let res = await fetch(
+        `${baseUrl}/users/${partialR.userId}/reimbursements/${partialR.rId}`,
+        {
+            method: 'PATCH',
+            header: { 'Content-Type': 'application/json' },
+            body: rJson
+        }
+    );
+
+    if (res.status === 204) {
+        window.location.assign("homepage.html");
+    } else {
+        console.log(error);
+        alert("Failed to update reimbursement");
+    }
 }
 
 function sendToForm() {
@@ -272,11 +350,32 @@ window.onload = function () {
     }
     if (window.location.href.match("http://localhost:8080/form.html") != null) {
         document.getElementById("gFormat").addEventListener('change', (event) => {
-            if (event.target.value == "Letter") {
+            if (event.target.value === "Letter") {
                 document.getElementById("gPassLabel").style.display = "inline";
             } else {
                 document.getElementById("gPassLabel").style.display = "none";
             }
         });
+    }
+    if (window.location.href.match("http://localhost:8080/reimbursementupdate.html") != null) {
+        let partialR = JSON.parse(sessionStorage.getItem("partialR"));
+        let user = JSON.parse(sessionStorage.getItem("user"));
+        document.getElementById("updateStatus").value = partialR.status;
+        document.getElementById("updateRAmount").value = partialR.reimbursementAmount.substring(1);
+        document.getElementById("updateGReceived").value = partialR.gradeReceived;
+        document.getElementById("updatePresentation").checked = partialR.presentationSubmitted;
+
+        if (user.financeManager) {
+            document.getElementById("gReceivedLabel").style.display = "none";
+            document.getElementById("pSubmittedLabel").style.display = "none";
+        } else {
+            document.getElementById("uStatusLabel").style.display = "none";
+            document.getElementById("rAmountLabel").style.display = "none";
+            if (partialR.gradeFormat === "Presentation") {
+                document.getElementById("gReceivedLabel").style.display = "none";
+            } else {
+                document.getElementById("pSubmittedLabel").style.display = "none";
+            }
+        }
     }
 }
