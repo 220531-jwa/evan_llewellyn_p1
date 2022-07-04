@@ -2,11 +2,18 @@ body {
     background-color: lightblue;
 }
 
-caption {
+/* .center {
+    max-width: 500px;
+    margin: auto;
+    align-items: center;
+} */
+
+#tableCaption {
     font-weight: bold;
     font-size: 1.5em;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
+    text-align: center;
 }
 
 table, th, td {
@@ -17,7 +24,7 @@ table, th, td {
 }
 
 th, td {
-    max-width: 7em;
+    max-width: 8em;
     min-width: 5em;
 }
 

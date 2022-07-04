@@ -22,9 +22,9 @@ public class ReimbursementController {
 		int id = Integer.parseInt(ctx.pathParam("id"));
 		Reimbursement rFromReqBody = ctx.bodyAsClass(Reimbursement.class);
 		rFromReqBody.setUserId(id);
-		Reimbursement r;
+
 		try {
-			r = rs.createReimbursement(rFromReqBody);
+			Reimbursement r = rs.createReimbursement(rFromReqBody);
 			ctx.status(201);
 			ctx.json(r);
 		} catch (Exception e) {

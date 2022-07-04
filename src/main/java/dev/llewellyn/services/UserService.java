@@ -15,7 +15,7 @@ public class UserService {
 		User user = userDao.getUserByEmail(loginUser.getEmail());
 		
 		if (user == null) {
-			throw new Exception("User not found");
+			throw new Exception("User with email " + loginUser.getEmail() + " not found");
 		}
 		
 		if (user.getEmail().equals(loginUser.getEmail()) && user.getPass().equals(loginUser.getPass())) {

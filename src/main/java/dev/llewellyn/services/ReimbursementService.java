@@ -73,11 +73,11 @@ public class ReimbursementService {
 
 	public int updateReimbursement(Reimbursement rChanged) throws Exception {
 		int success = rDao.updateReimbursement(rChanged);
-
+		
 		if (success == 0) {
 			throw new Exception("Reimbursement with id " + rChanged.getrId() + " not found");
 		} else {
-			if (rChanged.getStatus() == "Approved") {
+			if (rChanged.getStatus().equals("Approved")) {
 				User u = uDao.getUserById(rChanged.getUserId());
 				double currentAmount = u.getAvailableAmount();
 				double newAmount = currentAmount - rChanged.getReimbursementAmount();

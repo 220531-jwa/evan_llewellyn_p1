@@ -6,11 +6,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.suite.api.IncludeTags;
+import org.junit.platform.suite.api.Suite;
 
 import dev.llewellyn.models.User;
 import dev.llewellyn.repositories.UserDAO;
 
+@Suite
 public class UserServiceTests {
 
 	private static UserDAO mockUserDao;
@@ -56,7 +60,7 @@ public class UserServiceTests {
 		
 		Exception thrown = assertThrows(Exception.class, () -> { us.loginUser(uAttempt); });
 		
-		assertEquals("User not found", thrown.getMessage());
+		assertEquals("User with email em@yahoo.com not found", thrown.getMessage());
 	}
 	
 	@Test

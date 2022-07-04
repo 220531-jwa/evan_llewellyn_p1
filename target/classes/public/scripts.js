@@ -62,7 +62,7 @@ async function submitReimbursementForm() {
             console.log("Passing grade set to default (C)");
             gPass = "C";
         }
-        if (gPass === "Pass/Fail") {
+        else if (gPass === "Pass/Fail") {
             console.log("Passing grade set to default (Pass)");
             gPass = "Pass";
         } else {
@@ -240,7 +240,7 @@ function fillTable(resp, user) {
         c11.innerHTML = r.rLocation;
         c12.innerHTML = `${new Date(r.startDate).toDateString()}-${new Date(r.endDate).toDateString()}`;
         c13.innerHTML = r.startTime + "-" + r.endTime;
-        c14.innerHTML = "<button type='button' onclick='update(this)'>Edit</button>";
+        c14.innerHTML = "<button type='button' class='btn btn-primary' onclick='update(this)'>Edit</button>";
         c15.innerHTML = r.userId;
     }
 }
@@ -251,7 +251,7 @@ function update(cell) {
     
     let partialReimbursement = {
         rId: document.getElementById("rTable").rows[rowNum].cells[0].innerHTML,
-        userId: user.uid,
+        userId: document.getElementById("rTable").rows[rowNum].cells[15].innerHTML,
         status: document.getElementById("rTable").rows[rowNum].cells[2].innerHTML,
         reimbursementAmount: document.getElementById("rTable").rows[rowNum].cells[6].innerHTML,
         gradeFormat: document.getElementById("rTable").rows[rowNum].cells[7].innerHTML,
@@ -267,7 +267,7 @@ function update(cell) {
 async function submitUpdate() {
     let partialR = JSON.parse(sessionStorage.getItem("partialR"));
 
-    let status = getElementById("updateGReceived").value;
+    let status = document.getElementById("updateStatus").value;
     let gReceived = document.getElementById("updateGReceived").value;
     let pSubmitted = document.getElementById("updatePresentation").checked;
     let rAmount = parseFloat(document.getElementById("updateRAmount").value).toFixed(2);
@@ -317,7 +317,6 @@ async function submitUpdate() {
     if (res.status === 204) {
         window.location.assign("homepage.html");
     } else {
-        console.log(error);
         alert("Failed to update reimbursement");
     }
 }

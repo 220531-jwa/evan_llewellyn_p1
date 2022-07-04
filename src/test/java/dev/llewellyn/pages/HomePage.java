@@ -5,21 +5,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class HomePage {
 
 	private WebDriver driver;
 	
-	public LoginPage(WebDriver driver) {
+	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(id = "email")
-	public WebElement emailInput;
+	@FindBy(id = "formButton")
+	public WebElement createReimbursementButton;
 	
-	@FindBy(id = "pass")
-	public WebElement passwordInput;
+	@FindBy(xpath = "/html/body/button[1]")
+	public WebElement logoutButton;
 	
-	@FindBy(xpath = "/html/body/div/button")
-	public WebElement loginButton;
 }

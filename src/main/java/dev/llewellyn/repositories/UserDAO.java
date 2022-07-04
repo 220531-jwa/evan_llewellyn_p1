@@ -83,7 +83,7 @@ public class UserDAO {
 	}
 	
 	public int updateUser(int id, double newAmount) {
-		String sql = "update users set available_amount = ?, where u_id = ?";
+		String sql = "update users set available_amount = ? where u_id = ?";
 
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);

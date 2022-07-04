@@ -15,8 +15,8 @@ import io.cucumber.java.BeforeAll;
 @Suite
 @Tag("CucumberTests")
 @IncludeTags("CucumberTests")
-public class LoginRunner {
-	
+public class FailedLoginRunner {
+
 	public static WebDriver driver;
 	public static LoginPage loginPage;
 
@@ -33,5 +33,5 @@ public class LoginRunner {
 	public static void teardown() {
 		driver.quit();
 	}
-
+	
 }
