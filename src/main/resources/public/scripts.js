@@ -62,7 +62,7 @@ async function submitReimbursementForm() {
             console.log("Passing grade set to default (C)");
             gPass = "C";
         }
-        else if (gPass === "Pass/Fail") {
+        else if (gFormat === "Pass/Fail") {
             console.log("Passing grade set to default (Pass)");
             gPass = "Pass";
         } else {
@@ -74,8 +74,8 @@ async function submitReimbursementForm() {
     
     let status = "Submitted";
 
-    startDate = new Date(startDate);
-    endDate = new Date(endDate);
+    startDate = new Date(startDate.replaceAll("-", "/"));
+    endDate = new Date(endDate.replaceAll("-", "/"));
 
     startTime += ":00";
     endTime += ":00";
