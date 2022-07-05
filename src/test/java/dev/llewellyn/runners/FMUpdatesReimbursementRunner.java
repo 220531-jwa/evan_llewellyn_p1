@@ -8,15 +8,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import dev.llewellyn.pages.HomePage;
 import dev.llewellyn.pages.LoginPage;
+import dev.llewellyn.pages.UpdateReimbursementPage;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.BeforeAll;
 
 @Suite
-public class LogoutRunner {
+public class FMUpdatesReimbursementRunner {
 
 	public static WebDriver driver;
 	public static LoginPage loginPage;
 	public static HomePage homePage;
+	public static UpdateReimbursementPage rUpdatePage;
 
 	@BeforeAll
 	public static void setup() {
@@ -26,6 +28,7 @@ public class LogoutRunner {
 
 		loginPage = new LoginPage(driver);
 		homePage = new HomePage(driver);
+		rUpdatePage = new UpdateReimbursementPage(driver);
 	}
 
 	@AfterAll

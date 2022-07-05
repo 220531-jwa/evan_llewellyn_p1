@@ -12,4 +12,3 @@ Feature: User Login
 		| el@gmail.com | word     |
 		| df@gmail.com | trainer  |
 		|	dc@gmail.com | comedian |
-		

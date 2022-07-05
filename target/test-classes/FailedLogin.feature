@@ -14,4 +14,3 @@ Feature: Invalid Credentials at Login
 		| evan@gmail.com | word     |
 		| df@gmail.com   | 1234     |
 		|	bb@gmail.com   | DNE      |
-		

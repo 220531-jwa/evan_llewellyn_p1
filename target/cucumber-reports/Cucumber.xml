@@ -1,45 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="8" time="34.003">
-    <testcase classname="Create Reimbursement Request" name="a employee can create a reimbursement request" time="4.136">
-        <failure message="no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//*[@id=&quot;rTable&quot;]/tbody/tr[1]/td[7]&quot;}&#10;  (Session info: chrome=103.0.5060.66)&#10;For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element&#10;Build info: version: '4.1.2', revision: '9a5a329c5a'&#10;System info: host: 'EVAN-LAPTOP', ip: '172.30.224.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.7'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Command: [a44e6ff6accb99322b252a9d2a1bd185, findElement {using=xpath, value=//*[@id=&quot;rTable&quot;]/tbody/tr[1]/td[7]}]&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 103.0.5060.66, chrome: {chromedriverVersion: 102.0.5005.61 (0e59bcc00cc4..., userDataDir: C:\Users\Evan\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:64107}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:64107/devtoo..., se:cdpVersion: 103.0.5060.66, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}&#10;Session ID: a44e6ff6accb99322b252a9d2a1bd185" type="org.openqa.selenium.NoSuchElementException">
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="11" time="48.345">
+    <testcase classname="Create Reimbursement Request" name="a employee can create a reimbursement request" time="5.489">
+        <system-out>
             <![CDATA[Given a employee is on the login page.......................................passed
 When a employee logs in successfully........................................passed
 And they click on the create reimbursement request button on the home page..passed
 And they fill out the reimbursement request form............................passed
 Then employee should be on the home page....................................passed
-And be able to see the new reimbursement request............................failed
-
-StackTrace:
-org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id="rTable"]/tbody/tr[1]/td[7]"}
-  (Session info: chrome=103.0.5060.66)
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.1.2', revision: '9a5a329c5a'
-System info: host: 'EVAN-LAPTOP', ip: '172.30.224.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.7'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [a44e6ff6accb99322b252a9d2a1bd185, findElement {using=xpath, value=//*[@id="rTable"]/tbody/tr[1]/td[7]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 103.0.5060.66, chrome: {chromedriverVersion: 102.0.5005.61 (0e59bcc00cc4..., userDataDir: C:\Users\Evan\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:64107}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:64107/devtoo..., se:cdpVersion: 103.0.5060.66, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: a44e6ff6accb99322b252a9d2a1bd185
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:558)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:382)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
-	at dev.llewellyn.steps.CreateReimbursementStepImpl.be_able_to_see_the_new_reimbursement_request(CreateReimbursementStepImpl.java:104)
-	at ✽.be able to see the new reimbursement request(file:///C:/Users/Evan/Desktop/220531-JWA/ERS_Project1/src/test/resources/CreateReimbursement.feature:9)
+And be able to see the new reimbursement request............................passed
 ]]>
-        </failure>
+        </system-out>
     </testcase>
-    <testcase classname="Invalid Credentials at Login" name="a user attempts to login with invalid credentials" time="1.804">
+    <testcase classname="Invalid Credentials at Login" name="a user attempts to login with invalid credentials" time="1.72">
         <system-out>
             <![CDATA[Given a user is on the home page............................................passed
 When a user types in a invalid "evan@gmail.com" and/or "word" and clicks the login button.passed
@@ -49,7 +21,7 @@ And still be on the login page..............................................pass
 ]]>
         </system-out>
     </testcase>
-    <testcase classname="Invalid Credentials at Login" name="a user attempts to login with invalid credentials 2" time="2.395">
+    <testcase classname="Invalid Credentials at Login" name="a user attempts to login with invalid credentials 2" time="2.198">
         <system-out>
             <![CDATA[Given a user is on the home page............................................passed
 When a user types in a invalid "df@gmail.com" and/or "1234" and clicks the login button.passed
@@ -59,7 +31,7 @@ And still be on the login page..............................................pass
 ]]>
         </system-out>
     </testcase>
-    <testcase classname="Invalid Credentials at Login" name="a user attempts to login with invalid credentials 3" time="2.784">
+    <testcase classname="Invalid Credentials at Login" name="a user attempts to login with invalid credentials 3" time="2.587">
         <system-out>
             <![CDATA[Given a user is on the home page............................................passed
 When a user types in a invalid "bb@gmail.com" and/or "DNE" and clicks the login button.passed
@@ -69,7 +41,7 @@ And still be on the login page..............................................pass
 ]]>
         </system-out>
     </testcase>
-    <testcase classname="User Login" name="a user can login using their credentials" time="3.933">
+    <testcase classname="User Login" name="a user can login using their credentials" time="3.658">
         <system-out>
             <![CDATA[Given a user is on the login page...........................................passed
 When a user types in their "el@gmail.com" and "word" and clicks the login button.passed
@@ -77,7 +49,7 @@ Then the user should be on the home page....................................pass
 ]]>
         </system-out>
     </testcase>
-    <testcase classname="User Login" name="a user can login using their credentials 2" time="2.52">
+    <testcase classname="User Login" name="a user can login using their credentials 2" time="1.991">
         <system-out>
             <![CDATA[Given a user is on the login page...........................................passed
 When a user types in their "df@gmail.com" and "trainer" and clicks the login button.passed
@@ -85,7 +57,7 @@ Then the user should be on the home page....................................pass
 ]]>
         </system-out>
     </testcase>
-    <testcase classname="User Login" name="a user can login using their credentials 3" time="1.553">
+    <testcase classname="User Login" name="a user can login using their credentials 3" time="1.763">
         <system-out>
             <![CDATA[Given a user is on the login page...........................................passed
 When a user types in their "dc@gmail.com" and "comedian" and clicks the login button.passed
@@ -93,11 +65,44 @@ Then the user should be on the home page....................................pass
 ]]>
         </system-out>
     </testcase>
-    <testcase classname="User Logout" name="a user can logout by clicking the logout button ont the home page" time="2.166">
+    <testcase classname="User Logout" name="a user can logout by clicking the logout button on the home page" time="2.179">
         <system-out>
             <![CDATA[Given a user is already logged in and on the home page......................passed
 When a user clicks the logout button........................................passed
 Then the user should be on the login page...................................passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="User Updates Reimbursement" name="_2" time="4.154">
+        <system-out>
+            <![CDATA[Given a user is on the login page and already has a reimbursement request submitted.passed
+When a user types in their "mj@gmail.com" and "basketball" and then clicks the login button.passed
+And they click on the edit button for one of their reimbursement requests...passed
+And they fill out the "B" or "false" field..................................passed
+And they click on the update button.........................................passed
+Then the user should be on the home page with their edits made to either "B" or "false".passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="User Updates Reimbursement" name="_3" time="2.857">
+        <system-out>
+            <![CDATA[Given a user is on the login page and already has a reimbursement request submitted.passed
+When a user types in their "ts@gmail.com" and "iron" and then clicks the login button.passed
+And they click on the edit button for one of their reimbursement requests...passed
+And they fill out the "Pass" or "false" field...............................passed
+And they click on the update button.........................................passed
+Then the user should be on the home page with their edits made to either "Pass" or "false".passed
+]]>
+        </system-out>
+    </testcase>
+    <testcase classname="User Updates Reimbursement" name="_4" time="2.58">
+        <system-out>
+            <![CDATA[Given a user is on the login page and already has a reimbursement request submitted.passed
+When a user types in their "dc@gmail.com" and "comedian" and then clicks the login button.passed
+And they click on the edit button for one of their reimbursement requests...passed
+And they fill out the "" or "true" field....................................passed
+And they click on the update button.........................................passed
+Then the user should be on the home page with their edits made to either "" or "true".passed
 ]]>
         </system-out>
     </testcase>

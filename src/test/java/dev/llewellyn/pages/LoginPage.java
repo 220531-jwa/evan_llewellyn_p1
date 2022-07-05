@@ -20,6 +20,6 @@ public class LoginPage {
 	@FindBy(id = "pass")
 	public WebElement passwordInput;
 	
-	@FindBy(xpath = "/html/body/div/button")
+	@FindBy(xpath = "/html/body/div/div[4]/button")
 	public WebElement loginButton;
 }

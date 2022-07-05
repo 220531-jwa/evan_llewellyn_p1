@@ -20,31 +20,29 @@ public class UserController {
 		try {
 			User u = us.loginUser(userFromReqBody);
 			log.info("Successful login for user with id " + u.getUId());
-			ctx.status(202);
+			ctx.status(200);
 			ctx.json(u);
 		} catch (Exception e) {
 			log.error("Login failed - " + e.getMessage());
 			e.printStackTrace();
-			
 			ctx.status(400);
 			ctx.result(e.getMessage());
 		}
 	}
 	
-	public static void createNewUser(Context ctx) {
-		log.info("HTTP POST Request recieved at endpoint /users");
-		User userFromReqBody = ctx.bodyAsClass(User.class);
-		
-		try {
-			User u = us.createUser(userFromReqBody);
-			ctx.status(201);
-			ctx.json(u);
-		} catch (Exception e) {
-			log.error("Couldn't create user - " + userFromReqBody.getEmail() + " already in use");
-			e.printStackTrace();
-			
-			ctx.status(400);
-			ctx.result("Email already in use");
-		}	
-	}
+//	public static void createNewUser(Context ctx) {
+//		log.info("HTTP POST Request recieved at endpoint /users");
+//		User userFromReqBody = ctx.bodyAsClass(User.class);
+//		
+//		try {
+//			User u = us.createUser(userFromReqBody);
+//			ctx.status(201);
+//			ctx.json(u);
+//		} catch (Exception e) {
+//			log.error("Couldn't create user - " + userFromReqBody.getEmail() + " already in use");
+//			e.printStackTrace();
+//			ctx.status(400);
+//			ctx.result("Email already in use");
+//		}	
+//	}
 }

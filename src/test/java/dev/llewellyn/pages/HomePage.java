@@ -17,7 +17,6 @@ public class HomePage {
 	@FindBy(id = "formButton")
 	public WebElement createReimbursementButton;
 	
-	@FindBy(xpath = "/html/body/button[1]")
+	@FindBy(xpath = "/html/body/div/button[1]")
 	public WebElement logoutButton;
-	
 }

@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <title>Update Reimbursement</title>
 </head>
 <body>
-    <h2>Update Reimbursement</h2>
-    <div>
+    <div class="w-90 p-3 h-90 d-inline-block">
+        <h2>Update Reimbursement</h2>
         <label id="gReceivedLabel">
             Grade Received:
             <br/>
-            <input id="updateGReceived" type="text" placeholder="Ex. B or Pass">
+            <input id="updateGReceived" class="form-control form-control-sm" type="text" placeholder="Ex. B or Pass">
         </label>
 
         <label id="pSubmittedLabel">
             Presentation Submitted:
-            <input id="updatePresentation" type="checkbox">
+            <input id="updatePresentation" class="form-check-input" type="checkbox">
         </label>
         <br/>
 
         <label id="uStatusLabel">
             Status:
             <br/>
-            <select id="updateStatus">
+            <select id="updateStatus" class="form-select form-select-sm">
                 <option value="Submitted" disabled>Submitted</option>
                 <option value="Urgent" disabled>Urgent</option>
                 <option value="Pending">Pending</option>
@@ -38,14 +40,14 @@
         <label id="rAmountLabel">
             Reimbursement Amount:
             <br/>
-            <input id="updateRAmount" type="number" placeholder="Ex. 100.50">
+            <input id="updateRAmount" class="form-control form-control-sm" type="number" placeholder="Ex. 100.50">
         </label>
         <br/><br/>
 
-        <button type="button" onclick="submitUpdate()">Update</button>
+        <button type="button" class="btn btn-primary" onclick="submitUpdate()">Update</button>
+        <br/><br/>
+        <button type="button"  class="btn btn-secondary" onclick="cancel()">Cancel</button>
     </div>
-    <br/>
-    <button type="button" onclick="cancel()">Cancel</button>
 
     <script src="./scripts.js"></script>
 </body>

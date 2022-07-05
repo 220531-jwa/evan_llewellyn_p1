@@ -204,6 +204,10 @@ async function getReimbursementsForUser(user) {
 function fillTable(resp, user) {
     let table = document.getElementById("rTable");
     for (r of resp) {
+        if (user.financeManager && r.userId === user.uid) {
+            continue;
+        }
+
         let row = table.insertRow(-1);
         let c0 = row.insertCell(0);
         let c1 = row.insertCell(1);
@@ -240,14 +244,15 @@ function fillTable(resp, user) {
         c11.innerHTML = r.rLocation;
         c12.innerHTML = `${new Date(r.startDate).toDateString()}-${new Date(r.endDate).toDateString()}`;
         c13.innerHTML = r.startTime + "-" + r.endTime;
-        c14.innerHTML = "<button type='button' class='btn btn-primary' onclick='update(this)'>Edit</button>";
+        if (r.status !== "Approved" && r.status !== "Rejected") {
+            c14.innerHTML = "<button type='button' class='btn btn-primary' onclick='update(this)'>Edit</button>";
+        }
         c15.innerHTML = r.userId;
     }
 }
 
 function update(cell) {
     let rowNum = cell.closest("tr").rowIndex;
-    let user = JSON.parse(sessionStorage.getItem("user"));
     
     let partialReimbursement = {
         rId: document.getElementById("rTable").rows[rowNum].cells[0].innerHTML,
@@ -280,8 +285,8 @@ async function submitUpdate() {
     } else if (gReceived === "" && gradeFormat !== "Presentation" && status === "Approved") {
         alert("Cannot approve request: Grade must be submitted first");
         return;
-    } else if (gradeFormat === "Pass/Fail" && gReceived !== "Pass" && gReceived !== "Fail") {
-        alert("Pass/Fail format requires Grade received should be Pass or Fail");
+    } else if (gradeFormat === "Pass/Fail" && (gReceived !== "Pass" && gReceived !== "Fail") && status === "Approved") {
+        alert("Pass/Fail format requires grade received field to be Pass or Fail");
         return;
     } else if (gradeFormat === "Letter") {
         if (gReceived.length === 1 && (gReceived !== "A" && gReceived !== "B" && gReceived !== "C" 
@@ -291,7 +296,8 @@ async function submitUpdate() {
         }
         gRecieved = gReceived.toUpperCase();
         if (gReceived.charCodeAt(0) > gPass.charCodeAt(0) && status === "Approved") {
-            alert("Cannot approve request: Grade received must be at or above passing grade")
+            alert("Cannot approve request: Grade received must be at or above passing grade");
+            return;
         }
     }
 
@@ -303,7 +309,6 @@ async function submitUpdate() {
     };
 
     let rJson = JSON.stringify(newPartialR);
-    console.log(rJson);
 
     let res = await fetch(
         `${baseUrl}/users/${partialR.userId}/reimbursements/${partialR.rId}`,
@@ -333,21 +338,20 @@ window.onload = function () {
     if (window.location.href.match("http://localhost:8080/homepage.html") != null) {
         let p = document.getElementById("rAmountLeft");
         let caption = document.getElementById("tableCaption");
-        let button = document.getElementById("formButton");
         let user = JSON.parse(sessionStorage.getItem("user"));
+        let rAmountLeft = p.innerHTML + "$" + parseFloat(user.availableAmount).toFixed(2);
+        p.innerHTML = rAmountLeft;
 
         if (user.financeManager) {
-            p.style.display = "none";
             caption.innerHTML = "All Reimbursements";
-            button.style.display = "none";
+            p.style.display = "none";
+            document.getElementById("formButton").style.display = "none";
             getAllReimbursements(user);
         } else {
-            let rAmountLeft = p.innerHTML + "$" + parseFloat(user.availableAmount).toFixed(2);
-            p.innerHTML = rAmountLeft;
             getReimbursementsForUser(user);
         }
     }
-    if (window.location.href.match("http://localhost:8080/form.html") != null) {
+    else if (window.location.href.match("http://localhost:8080/form.html") != null) {
         document.getElementById("gFormat").addEventListener('change', (event) => {
             if (event.target.value === "Letter") {
                 document.getElementById("gPassLabel").style.display = "inline";
@@ -356,13 +360,16 @@ window.onload = function () {
             }
         });
     }
-    if (window.location.href.match("http://localhost:8080/reimbursementupdate.html") != null) {
+    else if (window.location.href.match("http://localhost:8080/reimbursementupdate.html") != null) {
         let partialR = JSON.parse(sessionStorage.getItem("partialR"));
         let user = JSON.parse(sessionStorage.getItem("user"));
+        
         document.getElementById("updateStatus").value = partialR.status;
         document.getElementById("updateRAmount").value = partialR.reimbursementAmount.substring(1);
         document.getElementById("updateGReceived").value = partialR.gradeReceived;
-        document.getElementById("updatePresentation").checked = partialR.presentationSubmitted;
+        if (partialR.presentationSubmitted == "true") {
+            document.getElementById("updatePresentation").checked = true;
+        }
 
         if (user.financeManager) {
             document.getElementById("gReceivedLabel").style.display = "none";

@@ -25,13 +25,13 @@ public class UserService {
 		}
 	}
 
-	public User createUser(User u) throws Exception {
-		User createdUser = userDao.createUser(u);
-		
-		if (createdUser == null) {
-			throw new Exception("Email already in use");
-		} else {
-			return createdUser;
-		}
-	}
+//	public User createUser(User u) throws Exception {
+//		User createdUser = userDao.createUser(u);
+//		
+//		if (createdUser == null) {
+//			throw new Exception("Email already in use");
+//		} else {
+//			return createdUser;
+//		}
+//	}
 }

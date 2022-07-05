@@ -6,9 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.suite.api.IncludeTags;
 import org.junit.platform.suite.api.Suite;
 
 import dev.llewellyn.models.User;
@@ -26,18 +24,18 @@ public class UserServiceTests {
 		us = new UserService(mockUserDao);
 	}
 	
-	@Test
-	public void shouldReturnNewUser() {
-		User u = new User(1, "Jay", "Crandal", "jc@yahoo.com", "pass", 1000, false);
-		
-		when(mockUserDao.createUser(u)).thenReturn(u);
-		
-		try {
-			assertEquals(u, us.createUser(u));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void shouldReturnNewUser() {
+//		User u = new User(1, "Jay", "Crandal", "jc@yahoo.com", "pass", 1000, false);
+//		
+//		when(mockUserDao.createUser(u)).thenReturn(u);
+//		
+//		try {
+//			assertEquals(u, us.createUser(u));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	@Test
 	public void loginAttemptWithValidCredentials() {

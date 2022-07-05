@@ -25,6 +25,7 @@ public class ReimbursementController {
 
 		try {
 			Reimbursement r = rs.createReimbursement(rFromReqBody);
+			log.info("Successfully created reimbursement with id " + r.getrId());
 			ctx.status(201);
 			ctx.json(r);
 		} catch (Exception e) {
@@ -38,8 +39,10 @@ public class ReimbursementController {
 
 	public static void getAllReimbursements(Context ctx) {
 		log.info("HTTP GET Request received at endpoint /reimbursements");
-		ctx.status(200);
 		List<UserReimbursementJoin> reimbursements = rs.getAllReimbursements();
+		
+		log.info("Successfully got all reimbursements");
+		ctx.status(200);
 		ctx.json(reimbursements);
 	}
 	
@@ -48,6 +51,7 @@ public class ReimbursementController {
 		log.info("HTTP GET Request received at endpoint /users/" + id + "/reimbursements");
 		List<Reimbursement> reimbursements = rs.getAllReimbursementsForUser(id);
 		
+		log.info("Successfully got all reimbursements for user with id " + id);
 		ctx.status(200);
 		ctx.json(reimbursements);
 	}

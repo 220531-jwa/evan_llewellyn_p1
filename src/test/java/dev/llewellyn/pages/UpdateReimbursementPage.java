@@ -26,9 +26,9 @@ public class UpdateReimbursementPage {
 	@FindBy(id = "updateRAmount")
 	public WebElement rAmountInput;
 	
-	@FindBy(xpath = "/html/body/div/button")
-	public WebElement submitReimbursementButton;
+	@FindBy(xpath = "/html/body/div/button[1]")
+	public WebElement updateReimbursementButton;
 	
-	@FindBy(xpath = "/html/body/button")
+	@FindBy(xpath = "/html/body/div/button[2]")
 	public WebElement cancelButton;
 }

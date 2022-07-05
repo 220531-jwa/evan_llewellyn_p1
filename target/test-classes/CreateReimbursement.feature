@@ -6,4 +6,4 @@ Feature: Create Reimbursement Request
 		And they click on the create reimbursement request button on the home page
 		And they fill out the reimbursement request form
 		Then employee should be on the home page
-#		And be able to see the new reimbursement request
+		And be able to see the new reimbursement request

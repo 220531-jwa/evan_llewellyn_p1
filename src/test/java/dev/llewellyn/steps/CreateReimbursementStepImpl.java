@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,7 +16,6 @@ import dev.llewellyn.pages.HomePage;
 import dev.llewellyn.pages.LoginPage;
 import dev.llewellyn.pages.ReimbursementFormPage;
 import dev.llewellyn.runners.CreateReimbursementRunner;
-import dev.llewellyn.runners.LoginRunner;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
@@ -50,8 +47,8 @@ public class CreateReimbursementStepImpl {
 
 	@When("a employee logs in successfully")
 	public void a_employee_logs_in_successfully() {
-		loginPage.emailInput.sendKeys("ts@gmail.com");
-		loginPage.passwordInput.sendKeys("iron");
+		loginPage.emailInput.sendKeys("tu@gmail.com");
+		loginPage.passwordInput.sendKeys("passy");
 		loginPage.loginButton.click();
 	}
 
@@ -93,16 +90,13 @@ public class CreateReimbursementStepImpl {
 	    assertEquals("Home Page", driver.getTitle());
 	}
 	
-	//Can't get this to work for some reason, keeps saying it can't find the element
-//	@Then("be able to see the new reimbursement request")
-//	public void be_able_to_see_the_new_reimbursement_request() {
-//		WebElement htmltable = driver.findElement(By.xpath("//*[@id=\"rTable\"]/tbody"));
-//		List<WebElement> rows = htmltable.findElements(By.tagName("tr"));
-//		System.out.println(rows.size());
-//		
-//	    WebElement rAmount = driver.findElement(By.xpath("//*[@id=\"rTable\"]/tbody/tr["+rows.size()+"]/td[7]"));
-//	    assertEquals("$111.11", rAmount.getText());
-//	}
+	@Then("be able to see the new reimbursement request")
+	public void be_able_to_see_the_new_reimbursement_request() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+	    WebElement rAmount = driver.findElement(By.xpath("//*[@id=\"rTable\"]/tbody/tr[2]/td[7]"));
+	    assertEquals("$111.11", rAmount.getText());
+	}
 	
 	@AfterAll
 	public static void teardown() {

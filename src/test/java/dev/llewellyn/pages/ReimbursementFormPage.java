@@ -43,9 +43,9 @@ public class ReimbursementFormPage {
 	@FindBy(id = "description")
 	public WebElement descriptionInput;
 	
-	@FindBy(xpath = "/html/body/div/button")
+	@FindBy(xpath = "/html/body/div/div[3]/div[2]/button[1]")
 	public WebElement submitReimbursementButton;
 	
-	@FindBy(xpath = "/html/body/button")
+	@FindBy(xpath = "/html/body/div/div[3]/div[2]/button[2]")
 	public WebElement cancelButton;
 }
